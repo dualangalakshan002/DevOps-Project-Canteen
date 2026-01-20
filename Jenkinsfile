@@ -5,8 +5,7 @@ pipeline {
 
         stage('Checkout Code') {
             steps {
-                git branch: 'main',
-                url: 'https://github.com/dualangalakshan002/DevOps-Project-Canteen.git'
+                checkout scm
             }
         }
 
