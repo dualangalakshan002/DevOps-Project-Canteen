@@ -4,7 +4,7 @@ pipeline {
     stages {
         stage('Checkout Code') {
             steps {
-                git branch: '2ndedit',
+                git branch: 'main',
                     url: 'https://github.com/dualangalakshan002/DevOps-Project-Canteen.git'
             }
         }
