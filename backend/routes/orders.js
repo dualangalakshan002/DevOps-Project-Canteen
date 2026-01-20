@@ -7,15 +7,26 @@ const { auth, roleAuth } = require('../middleware/auth');
 // Place order (student)
 router.post('/', auth, roleAuth(['student']), async (req, res) => {
   try {
-    const { items } = req.body; // items: [{ foodId, quantity }]
+    const { items } = req.body; // items: [{ foodId, quantity, size?, note? }]
     let total = 0;
     const orderItems = [];
 
     for (let item of items) {
       const food = await Food.findById(item.foodId);
       if (!food) return res.status(404).json({ msg: 'Food not found' });
-      total += food.price * item.quantity;
-      orderItems.push({ foodId: item.foodId, quantity: item.quantity });
+
+      // calculate price considering size (half = 0.5)
+      const multiplier = item.size === 'half' ? 0.5 : 1;
+      const linePrice = food.price * multiplier;
+      total += linePrice * item.quantity;
+
+      orderItems.push({
+        foodId: item.foodId,
+        quantity: item.quantity,
+        size: item.size || 'full',
+        note: item.note || '',
+        price: food.price // store base price
+      });
     }
 
     const order = new Order({
