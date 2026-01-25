@@ -7,7 +7,7 @@ services:
       - mongo_data:/data/db
 
   backend:
-    build: ./backend
+    image: dulanga002/canteen-backend:latest
     ports:
       - "5000:5000"
     env_file:
@@ -16,7 +16,7 @@ services:
       - mongo
 
   frontend:
-    build: ./forntend
+    image: dulanga002/canteen-frontend:latest
     ports:
       - "5173:5173"
     depends_on:
