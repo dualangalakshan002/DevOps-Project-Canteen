@@ -1,9 +1,6 @@
-version: "3.8"
-
 services:
   mongo:
     image: mongo:6
-    container_name: mongo
     ports:
       - "27017:27017"
     volumes:
@@ -11,7 +8,6 @@ services:
 
   backend:
     build: ./backend
-    container_name: backend
     ports:
       - "5000:5000"
     env_file:
@@ -19,9 +15,8 @@ services:
     depends_on:
       - mongo
 
-  forntend:
+  frontend:
     build: ./forntend
-    container_name: forntend
     ports:
       - "5173:5173"
     depends_on:
