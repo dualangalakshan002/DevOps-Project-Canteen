@@ -48,22 +48,24 @@ pipeline {
             }
         }
 
-stage('Terraform Init & Apply') {
+        stage('Terraform Init & Apply') {
             agent {
                 docker {
                     image 'hashicorp/terraform:1.6'
-                    args '-u root:root'
+                    args '--entrypoint="" -u root:root'
                 }
             }
             steps {
                 dir('terraform') {
                     sh '''
+                    terraform --version
                     terraform init
                     terraform apply -auto-approve
                     '''
                 }
             }
         }
+
 
         stage('Deploy with Docker Compose') {
             steps {
