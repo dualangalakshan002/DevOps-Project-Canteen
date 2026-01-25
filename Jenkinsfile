@@ -52,12 +52,14 @@ pipeline {
             agent {
                 docker {
                     image 'hashicorp/terraform:1.6'
-                    args '--entrypoint="" -u root:root'
+                    args '-u root:root -v $WORKSPACE/terraform:/workspace'
+                    reuseNode true
                 }
             }
             steps {
-                dir('terraform') {
+                dir('/workspace') {  // Use the mount inside the container
                     sh '''
+                    ls -l
                     terraform --version
                     terraform init
                     terraform apply -auto-approve
@@ -65,6 +67,7 @@ pipeline {
                 }
             }
         }
+
 
 
         stage('Deploy with Docker Compose') {
