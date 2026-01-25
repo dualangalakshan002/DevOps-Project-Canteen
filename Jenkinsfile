@@ -48,7 +48,13 @@ pipeline {
             }
         }
 
-        stage('Terraform Init & Apply') {
+stage('Terraform Init & Apply') {
+            agent {
+                docker {
+                    image 'hashicorp/terraform:1.6'
+                    args '-u root:root'
+                }
+            }
             steps {
                 dir('terraform') {
                     sh '''
