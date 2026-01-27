@@ -25,7 +25,10 @@ resource "docker_container" "mongo" {
   name  = "canteen-mongo"
   image = docker_image.mongo_image.name
 
-  volumes = ["${docker_volume.mongo_data.name}:/data/db"]
+  volumes {
+    volume_name   = docker_volume.mongo_data.name
+    container_path = "/data/db"
+  }
 
   networks_advanced {
     name = docker_network.canteen_network.name
