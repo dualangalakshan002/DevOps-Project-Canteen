@@ -52,12 +52,12 @@ pipeline {
             agent {
                 docker {
                     image 'hashicorp/terraform:1.6'
-                    args '-u root:root -v $WORKSPACE/terraform:/workspace'
+                    args '-u root:root'
                     reuseNode true
                 }
             }
             steps {
-                dir('/workspace') {  // Use the mount inside the container
+                dir('terraform') {
                     sh '''
                     ls -l
                     terraform --version
@@ -67,6 +67,7 @@ pipeline {
                 }
             }
         }
+
 
 
 

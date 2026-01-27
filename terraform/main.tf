@@ -46,7 +46,7 @@ resource "docker_container" "frontend" {
   }
   # The frontend image serves assets (nginx) on container port 80; map it to host 5173
   ports {
-    internal = 80
+    internal = 5173
     external = 5173
   }
 }
