@@ -52,15 +52,14 @@ pipeline {
             agent {
                 docker {
                     image 'hashicorp/terraform:1.6'
-                    args '-u root:root'
+                    args '--entrypoint="" -u root:root'
                     reuseNode true
                 }
             }
             steps {
                 dir('terraform') {
                     sh '''
-                    ls -l
-                    terraform --version
+                    terraform version
                     terraform init
                     terraform apply -auto-approve
                     '''
@@ -70,16 +69,6 @@ pipeline {
 
 
 
-
-        stage('Deploy with Docker Compose') {
-            steps {
-                sh '''
-                docker compose down || true
-                docker compose pull
-                docker compose up -d
-                '''
-            }
-        }
     }
 
     post {
