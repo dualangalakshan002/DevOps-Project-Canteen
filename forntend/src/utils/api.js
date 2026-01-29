@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 // Prefer VITE_API_URL from env; fall back to the backend default when missing.
-const baseURL = import.meta.env?.VITE_API_URL || 'http://backend:5000/api';
+const baseURL = import.meta.env?.VITE_API_URL || 'http://129.159.225.108:5000/api';
 
 const api = axios.create({
   baseURL,
