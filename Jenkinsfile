@@ -31,8 +31,13 @@ pipeline {
         stage('Build & Push Images') {
             steps {
                 sh '''
+                # Build backend
                 docker build -t $DOCKERHUB_USER/$BACKEND_IMAGE:latest ./backend
-                docker build -t $DOCKERHUB_USER/$FRONTEND_IMAGE:latest ./frontend
+                
+                # Build frontend using your folder name 'forntend'
+                docker build -t $DOCKERHUB_USER/$FRONTEND_IMAGE:latest ./forntend
+                
+                # Push to Docker Hub
                 docker push $DOCKERHUB_USER/$BACKEND_IMAGE:latest
                 docker push $DOCKERHUB_USER/$FRONTEND_IMAGE:latest
                 '''
@@ -41,13 +46,11 @@ pipeline {
 
         stage('Deploy to Oracle VM') {
             steps {
-                // This uses the SSH Agent plugin to securely use your oracle.key
                 sshagent(['oracle-vm-key']) {
                     sh '''
                     ssh -o StrictHostKeyChecking=no ubuntu@$ORACLE_VM_IP "
                         docker pull $DOCKERHUB_USER/$BACKEND_IMAGE:latest &&
                         docker pull $DOCKERHUB_USER/$FRONTEND_IMAGE:latest &&
-                        # Move to your project directory on the VM and restart containers
                         cd ~/canteen-app && 
                         docker compose down || true &&
                         docker compose up -d
