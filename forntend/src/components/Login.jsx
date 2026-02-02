@@ -60,7 +60,7 @@ const Login = () => {
             value={formData.role}
             onChange={(e) => setFormData({ ...formData, role: e.target.value })}
           >
-            <option value="student">Student</option>
+            <option value="student">Student_student</option>
             <option value="staff">Staff</option>
           </select>
         )}
