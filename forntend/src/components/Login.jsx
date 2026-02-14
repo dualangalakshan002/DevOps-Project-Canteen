@@ -32,7 +32,7 @@ const Login = () => {
   return (
     <div className="flex items-center justify-center min-h-screen">
       <form onSubmit={handleSubmit} className="bg-white p-8 rounded shadow w-96">
-        <h2 className="text-2xl font-bold mb-4">{isRegister ? 'Register' : 'Login'}</h2>
+        <h2 className="text-2xl font-bold mb-4">{isRegister ? 'Register' : 'Login_Dulanga'}</h2>
 
         {error && <p className="text-red-500 mb-4">{error}</p>}
 
