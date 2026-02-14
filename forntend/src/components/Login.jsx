@@ -38,7 +38,7 @@ const Login = () => {
 
         <input
           type="text"
-          placeholder="Username"
+          placeholder="Username Dulanga"
           className="w-full p-2 border mb-4"
           required
           value={formData.username}
